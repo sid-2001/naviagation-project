@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+   <style>
+    body {
+        font-family: Helvetica, sans-serif;
+        padding: 5%;
+        text-align: center;
+        font-size: 50;
+    }
+     
+    /* Styling the area of the slides */
+     
+    #slideshow {
+        overflow: hidden;
+        height: 1000px;
+        width: 1000px;
+        margin: 0 auto;
+    }
+     
+    /* Style each of the sides
+    with a fixed width and height */
+     
+    .slide {
+        float: left;
+        height: 1000px;
+        width: 1008px;
+    }
+     
+    /* Add animation to the slides */
+     
+    .slide-wrapper {
+         
+        /* Calculate the total width on the
+      basis of number of slides */
+        width: calc(1000px * 4);
+         
+        /* Specify the animation with the
+      duration and speed */
+        animation: slide 10s ease infinite;
+    }
+  
+     
+    /* Define the animation
+    for the slideshow */
+     
+    @keyframes slide {
+         
+        /* Calculate the margin-left for
+      each of the slides */
+        20% {
+            margin-left: 0px;
+        }
+        40% {
+            margin-left: calc(-1000px * 1);
+        }
+        60% {
+            margin-left: calc(-1000px * 2);
+        }
+        80% {
+            margin-left: calc(-1000px * 3);
+        }
+    }
+    </style>
+
+<section>
+
+
+      <div id="slideshow">
+        <div class="slide-wrapper">
+             
+        <!-- Define each of the slides
+         and write the content -->
+
+         {% for item in data %}
+         <div class="slide">
+            <img src={{item}} style="width:100%">
+          </div>
+          {% endfor %}
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

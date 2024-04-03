@@ -1,0 +1,22 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<section>
+      <div class="file_input_form">
+          <form method= "POST" action = "{{ url_for('printShortestPath') }}" enctype="multipart/form-data">
+              <div class = "form_title"><u>Enter Source And Destination</u></div><br>
+              <div class = "file_input">
+              	<input type="text" name="src">
+              	<input type="text" name="dest">
+              </div>
+              <div class = "submit_button"><input type="submit" name="submit_form" enctype="multipart/form-data"></div>
+          </form>
+      </div>
+</section>
+
+</body>
+</html>
