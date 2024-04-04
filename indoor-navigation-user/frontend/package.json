@@ -14,7 +14,6 @@
     "react-konva": "^18.2.3",
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
-    "react-svg-lib": "^1.0.42",
     "react-transition-group": "^4.4.5",
     "styletron-engine-atomic": "^1.5.0",
     "styletron-react": "^6.1.0",
@@ -45,5 +44,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/"
+  "proxy": "http://127.0.0.1:5001/"
 }

@@ -10,7 +10,7 @@ const port = process.env.PORT || 5000;
 
 // Connect to the database
 mongoose
-  .connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true, })
+  .connect('mongodb+srv://siddhant:Bp6bZfjGPYoq9nxC@cluster0.f6fro.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', { useNewUrlParser: true, useUnifiedTopology: true, })
   .then(() => console.log(`Database connected successfully`))
   .catch((err) => console.log(err));
 
