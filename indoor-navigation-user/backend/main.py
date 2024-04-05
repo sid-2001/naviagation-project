@@ -48,7 +48,7 @@ node22 = Node(22, "Lift", "lift", 613, 417)
 node23 = Node(23, "Staircase", "staircase", 608, 535)
 node24 = Node(24, "Staircase", "staircase", 610, 761)
 node25 = Node(25, "Home Centre", "store", 752, 737)
-node26 = Node(26, "Smart Bazaar", "store", 417, 304)
+node26 = Node(26, "My Car", "store", 417, 304)
 node27 = Node(27, "Turn", "direction", 499, 401)
 node28 = Node(28, "Staircase", "staircase", 421, 451)
 
@@ -165,7 +165,8 @@ for node in nav:
 
 # initialise app  
 app = Flask(__name__, static_folder='./../frontend/build', static_url_path='/')
-
+last_known_location = {}
+car_id = None 
 
 @app.route('/generatePath', methods=["POST"])
 def printShortestPath():
@@ -281,25 +282,26 @@ def printShortestPath():
   return {
     'path': img_links, 'coords': coords
   }
+# @app.route('/data', methods=["GET"])
+# def get_pois():
+#     return {
+#         'poi':["Armonia",
+# "lift",
+# "washroom",
+# "staircase",
+# "Bombay Store",
+# "LG",
+# "Hitachi",
+# "Apple Servicee Centre",
+# "Haldiram Store",
+# "Uniqlo",
+# "Market 99",
+# "MAX",
+# "Home Centre",
+# "My Car"], 
+#         }
 
-@app.route('/data', methods=["GET"])
-def get_pois():
-    return {
-        'poi':["Armonia",
-"lift",
-"washroom",
-"staircase",
-"Bombay Store",
-"LG",
-"Hitachi",
-"Apple Servicee Centre",
-"Haldiram Store",
-"Uniqlo",
-"Market 99",
-"MAX",
-"Home Centre",
-"Smart Bazaar"], 
-        }
+
 
 @app.errorhandler(404)
 def not_found(e):
@@ -308,7 +310,71 @@ def not_found(e):
 @app.route('/')
 
 def index():
+    global car_id
+    car_id = request.args.get('car')
     return app.send_static_file('index.html')
 
+
+@app.route('/data', methods=["GET"])
+def get_pois():
+    global car_id
+    if car_id is None:
+        return {
+            'poi': [
+                "Armonia",
+                "lift",
+                "washroom",
+                "staircase",
+                "Bombay Store",
+                "LG",
+                "Hitachi",
+                "Apple Service Centre",
+                "Haldiram Store",
+                "Uniqlo",
+                "Market 99",
+                "MAX",
+                "Home Centre",
+                "My Car"  
+            ]
+        }
+
+    try:
+        car_id = int(car_id)
+    except ValueError:
+        return {
+            'error': 'Car index parameter must be an integer.'
+        }, 400 
+
+    if car_id not in nav:
+        return {
+            'error': 'Car index not found.'
+        }, 404
+
+    if car_id not in last_known_location:
+        last_known_location[car_id] = "Unknown"
+
+    if nav[car_id]:
+        last_known_location[car_id] = nav[car_id][-1].name
+
+    result = [
+        "Armonia",
+        "lift",
+        "washroom",
+        "staircase",
+        "Bombay Store",
+        "LG",
+        "Hitachi",
+        "Apple Service Centre",
+        "Haldiram Store",
+        "Uniqlo",
+        "Market 99",
+        "MAX",
+        "Home Centre",
+        last_known_location[car_id]  
+    ]
+
+    return {
+        'poi': result
+    }
 if __name__ == '__main__':
  	app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 5001))
