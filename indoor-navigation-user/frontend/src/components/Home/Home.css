@@ -10,7 +10,7 @@ select {
     /* Personalize */
     flex: 1;
     padding: 0 1em;
-    color: rgba(44, 44, 44, 0.29);
+    color: #333;
     font-weight: bolder;
     background-color: white;
     background-image: none;
